@@ -3,11 +3,6 @@ body{
     height: 100%;
     background-color:rgb(184, 245, 224) ;
 }
-.corrente{
-    border: 1px;
-    border:solid #cccccc;
-    background-color: aquamarine;
-}
 
 div{
     display: inline-block;
@@ -29,9 +24,14 @@ div{
 
 .graficos iframe{
     padding: 0.2em;
+    border: 1px;
+    border:solid #cccccc;
+    background-color: aquamarine;
 }
 
-
+.graficos div {
+    padding: 0.3em;
+}
 img{
     width: 200px;
     height: 200px;

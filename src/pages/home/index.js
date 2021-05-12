@@ -13,10 +13,13 @@ export default function Home(){
             </div>
             
             <div class='graficos'>
-            
+            <div class = "corrente_div">
             <iframe class = "corrente" width="450" height="260"  src="https://thingspeak.com/channels/1373277/charts/1?bgcolor=%23ffffff&color=%23d62020&days=1&dynamic=true&type=line"></iframe>
-            <iframe width="450" height="260" src="https://thingspeak.com/channels/1373277/widgets/309831"></iframe>
+            </div>
 
+            <div class ="potencia_div">
+            <iframe width="450" height="260" src="https://thingspeak.com/channels/1373277/widgets/309831"></iframe>
+            </div>
             </div>
         </div>
     )
