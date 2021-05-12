@@ -1,0 +1,25 @@
+.corrente{
+    border: 1px;
+    border:solid #cccccc
+}
+
+div{
+    display: block;
+}
+
+.logo{
+    margin: 20px;
+    padding: 20px;
+    width: 100%;
+    align-items: center;
+    
+}
+
+.graficos{
+    border: 10px;
+}
+
+img{
+    width: 200px;
+    height: 200px;
+}
