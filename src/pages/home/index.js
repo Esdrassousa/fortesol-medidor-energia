@@ -23,8 +23,7 @@ export default function Home(){
         await api.get('/').then(response => {
           var a = response.data
           setDados(response.data)
-            
-            
+                
         })
        
 
@@ -66,10 +65,15 @@ export default function Home(){
             
             />
             
-            
-            
               <button  type='button' type="submit">click</button>
           </form>
+
+          <div class = 'botoes'>
+            <button type = 'button' >5 min</button>
+            <button type = 'button' >15 min</button>
+            <button type = 'button' >30 min</button>
+            <button type = 'button' >1 h min</button>
+          </div>
         </div>
     )
 }
