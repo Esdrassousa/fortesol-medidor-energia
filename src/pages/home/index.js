@@ -6,43 +6,75 @@ import { useState } from 'react';
 import api from '../../services/api'
 import logoFortesol from '../../imagens/logo.png';
 import {Line} from "react-chartjs-2";
-
-
+global.a = 0;
+global.data = 0
 export default function Home(){
 
-
+      
       const [dado ,setDados] = useState([['', 'corrente'], 
       ['2021-03-20, 09:59:22',5.88],
       
      
       ],
      );
-
+    
      async function dados(e){
         e.preventDefault()
-        await api.get('/').then(response => {
-          var a = response.data
+        if (global.a == 0) {
+          var min = '5'
+          global.data = {
+            min
+          } 
+      }else{
+        var min = global.
+        global.data = {
+          min
+        } 
+      }
+        await api.post('/', global.data).then(response => {
+          //var a = response.data
           setDados(response.data)
                 
         })
        
 
     }
+
+    async function clickBotao(id){
+      
+      global.a = id
+
+      
+      /* const data = {
+        a
+      }
+      await api.post('/',data) */
+    }
+
     /* var b = [['', 'corrente']]  */
     useEffect(async  () => {
-      await api.get('/').then(response => {
+      if (global.a == 0) {
+        var min = '5'
+        global.data = {
+          min
+        } 
+    }else{
+      var min = global.a
+      global.data = {
+        min
+      } 
+    }
+      await api.post('/', global.data).then(response => {
 
-        /* var a = response.data
-        b.push([a[0], a[1]]) */
+        
         setDados(response.data)
-        /* setDados([['', 'corrente'], [a[0], a[1]]]) */
-        //console.log("o valor de a é: " , b)
+        
         
         
     })
       },[dado])
       console.log("o valor é: " , dado)
-      
+    
       
     return(
         <div >
@@ -69,10 +101,9 @@ export default function Home(){
           </form>
 
           <div class = 'botoes'>
-            <button type = 'button' >5 min</button>
-            <button type = 'button' >15 min</button>
-            <button type = 'button' >30 min</button>
-            <button type = 'button' >1 h min</button>
+            <button onClick ={ (e) => clickBotao(5)}>5 min</button>
+            <button onClick = { (e) => clickBotao(15)}>15 min</button>
+           
           </div>
         </div>
     )
