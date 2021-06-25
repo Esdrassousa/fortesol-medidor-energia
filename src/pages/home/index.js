@@ -76,7 +76,7 @@ export default function Home(){
       
       var data_atual = new Date()
       console.log("o valor é: " , dado)
-      console.log(data_atual)
+      
       
     return(
         <div >
