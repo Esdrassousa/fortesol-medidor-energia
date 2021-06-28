@@ -8,6 +8,14 @@ import logoFortesol from '../../imagens/logo.png';
 import {Line} from "react-chartjs-2";
 global.a = 0;
 global.data = 0
+
+window.addEventListener("load" , function() { 
+  var buttonb = document.getElementById('esconde')
+  buttonb.addEventListener("click" , function(){
+        var container = document.getElementById('mostra1')
+        container.classList.toggle('mystyle')
+      })
+})
 export default function Home(){
 
       
@@ -44,11 +52,6 @@ export default function Home(){
       
       global.a = id
 
-      
-      /* const data = {
-        a
-      }
-      await api.post('/',data) */
     }
 
     /* var b = [['', 'corrente']]  */
@@ -75,22 +78,25 @@ export default function Home(){
       },[dado])
       
       var data_atual = new Date()
-      console.log("o valor é: " , dado)
+      //console.log("o valor é: " , dado)
+    
+    
+   
+
+    
       
       
     return(
-        <div >
+        <div class = 'pai'>
             <div class='logo'>
             <img src={logoFortesol} alt='logo'/>
             </div>
+      
             
-            <div class='graficos'>
-
+          <div class='graficos'>   
+          <form onSubmit={dados}>
 
            
-            </div>
-            
-          <form onSubmit={dados}>
           <Chart onCha
             width={'500px'}
             height={'300px'}
@@ -98,15 +104,36 @@ export default function Home(){
             data={dado}
             
             />
-            
-              <button  type='button' type="submit">click</button>
+            <div class = "button_form_div">
+              <button class='button_form' type='button' type="submit">click</button>
+              </div>
           </form>
+          </div>
 
-          <div class = 'botoes'>
+         {/*  <label for ='toggle-1'>
+            Clique aqui
+            </label>
+
+            <input type = "checkbox" id = "toggle-1"></input>
+          <div id = 'mostra' class = 'botoes'>
             <button onClick ={ (e) => clickBotao(5)}>5 min</button>
             <button onClick = { (e) => clickBotao(15)}>15 min</button>
            
+          </div> */}
+
+          <div class='atualiza'>
+
+         '   <button id = "esconde">click em mim</button>
+            <div id="mostra1">
+
+              <div class='div_button'>
+                <button class='button' onClick ={ (e) => clickBotao(5)}>5 min</button>
+                <button class='button' onClick = { (e) => clickBotao(15)}>15 min</button>
+              </div>
+            </div>'
+
           </div>
+
         </div>
     )
 }

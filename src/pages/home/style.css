@@ -4,7 +4,7 @@ body{
     background-color:rgb(230, 243, 238);
 }
 
-div{
+.pai{
     display: inline-block;
 }
 
@@ -24,36 +24,69 @@ div{
 }
 
 .graficos{
-    border: 10px;
-    display: block;
+    border: 2em;
+    display: table;
+    position: relative;
    
 }
 
-.graficos iframe{
-    padding: 0.2em;
-    border: 1px;
-    border:solid #cccccc;
-    background-color: aquamarine;
-    
-}
-.PA{
-    width: 28em;
-    height: 45vh;
+.button_form_div{
+    width: 20vh;
+    position: relative;
+    margin-left: 0em;
+    margin-top: 1em;
 }
 
-.PB{
-    width: 28em;
-    height: 45vh;
-}
 
-.PC{
-    width: 28em;
-    height: 45vh;
-}
-.graficos div {
-    padding: 0.3em;
-}
+
 img{
     width: 200px;
     height: 200px;
 }
+
+/* #toggle-1{
+    display: none;
+} */
+
+/* label{
+    -webkit-appearance: push-button;
+    -moz-appearance: button;
+    display: inline-block;
+    cursor: pointer;
+    padding: 5px;
+
+} */
+
+/* #mostra{
+    display: none;
+} */
+
+/* #toggle-1:checked ~ #mostra{
+    display: table;
+} */
+.div_button{
+    width: 100%;
+    height: 100%;
+    margin-top: 1em;
+    display: block;
+    
+    
+}
+.mystyle{
+    display: none;
+    
+}
+
+.div_button button{
+    width: 5em;
+    display: block;
+    margin: 0.3em;
+    
+}
+.atualiza{
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    margin-top: 1em;
+}
+
