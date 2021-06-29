@@ -6,6 +6,12 @@ body{
 
 .pai{
     display: inline-block;
+    width: 100%;
+}
+
+.menu{
+    width: 100;
+    display: flex;
 }
 
 .logo{
@@ -19,14 +25,42 @@ body{
 }
 .logo img{
     display: block;
-    margin-left: auto;
+    margin-left: 45vw;
     margin-right: auto;
 }
+.bt_atualiza{
+    width: 5em;
+}
+.bt_atualiza a{
+    width: 5vw;
+}
+.atualiza{
+    width: 100%;
+    display: inline-block;
+    position: relative;
+    margin-top: 1em;
+    margin-left: 22vw;
 
+}
+
+.atualiza :hover{
+    transition-duration:  1s;
+}
+.div_button{
+    width: 100%;
+    height: 100%;
+    margin-top: 0.2em;
+    display: block;
+    margin-left:0;
+    
+    
+}
 .graficos{
     border: 2em;
     display: table;
     position: relative;
+    margin-left: auto;
+    margin-right: auto
    
 }
 
@@ -40,41 +74,20 @@ body{
 
 
 img{
-    width: 200px;
-    height: 200px;
+    width: 10em;
+    height: 10em;
 }
 
-/* #toggle-1{
-    display: none;
-} */
 
-/* label{
-    -webkit-appearance: push-button;
-    -moz-appearance: button;
-    display: inline-block;
-    cursor: pointer;
-    padding: 5px;
 
-} */
-
-/* #mostra{
-    display: none;
-} */
-
-/* #toggle-1:checked ~ #mostra{
-    display: table;
-} */
-.div_button{
-    width: 100%;
-    height: 100%;
-    margin-top: 1em;
-    display: block;
-    
-    
-}
 .mystyle{
     display: none;
-    
+    transition: border-color 1s linear 0.1s;
+}
+
+.mystyle:hover{
+    transition: border-color 1s linear 0.1s;
+    transition-duration: 2s;
 }
 
 .div_button button{
@@ -82,11 +95,5 @@ img{
     display: block;
     margin: 0.3em;
     
-}
-.atualiza{
-    width: 100%;
-    display: inline-block;
-    position: relative;
-    margin-top: 1em;
 }
 
