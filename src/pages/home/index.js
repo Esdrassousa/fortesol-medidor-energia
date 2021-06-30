@@ -5,15 +5,15 @@ import { Chart } from "react-google-charts";
 import { useState } from 'react';
 import api from '../../services/api'
 import logoFortesol from '../../imagens/logo.png';
-import {Line} from "react-chartjs-2";
+import {Bubble, Line} from "react-chartjs-2";
 global.a = 0;
 global.data = 0
 
 window.addEventListener("load" , function(event) { 
   var buttonb = document.getElementById("esconde")
   buttonb.addEventListener("click" , function(){
-        //var container = document.getElementById("mostra1")
-        //container.classList.toggle("mystyle")
+        var container = document.getElementById("mostra1")
+        container.classList.toggle("mystyle")
         clickbotao()
         //setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
         
@@ -21,7 +21,15 @@ window.addEventListener("load" , function(event) {
   var clickbotao = ()=>{
     //  var buttonb = document.getElementById("esconde")
     var container = document.getElementById("mostra1")
-    container.style.display = 'block';
+    container.classList.toggle("mystyle")
+    if (container.style.display == 'block'){
+      container.style.display = 'none';
+      document.removeEventListener('click' , handlerClickFora, false)
+    }else{
+      container.style.display = 'block';
+      document.removeEventListener('click' , handlerClickFora, false)
+    }
+    
     setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
   }
   var handlerClickFora =()=>{
@@ -67,10 +75,10 @@ export default function Home(){
 
     }
 
-    async function clickBotao(id){
+    async function clickBotao(id,text){
       
       global.a = id
-
+      document.getElementById('esconde').textContent = text
     }
 
     /* var b = [['', 'corrente']]  */
@@ -81,6 +89,8 @@ export default function Home(){
           minutes_recebidos
         } 
     }else{
+
+
       var minutes_recebidos = global.a
       global.data = {
         minutes_recebidos
@@ -94,7 +104,37 @@ export default function Home(){
     })
       },[dado])
       
-      
+      var options = {
+        title: 'Forte Sol',
+        
+        hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
+          max: 50 //valor máximo a ser mostrado no eixo X
+        }},
+        vAxis: {title: 'Corrente', minValue:0},
+        series: {
+          // Gives each series an axis name that matches the Y-axis below.
+          0: { axis: 'Corrente' },
+          1: { axis: 'Daylight' },
+        },
+        pointSize: 5,
+        xAxes: [{
+          type: 'time',
+          time: {
+              unit: 'day',
+              distribution: 'linear',
+              displayFormats: {
+                  'MM': 'SS'
+              }
+          },
+          bounds: 'ticks',
+      }],
+
+        backgroundColor: 'transparent',
+        
+        
+        
+          }
+         
       console.log(dado[dado.length-1])
       
     return(
@@ -104,31 +144,37 @@ export default function Home(){
 
             
 
-            <div class='logo'>
+            
             <img src={logoFortesol} alt='logo'/>
-            </div>
+            
 
             <div class='atualiza'>
 
-             <button class = 'bt_atualiza' id ='esconde'><a>Ultimos</a></button>
-              <div id='mostra1'>
+             <button class = 'bt_atualiza' id ='esconde' title="Ultimos">Ultimos</button>
+              <div class = 'mystyle' id='mostra1'>
 
               <div class='div_button'>
-                <button class='button' onClick ={ (e) => clickBotao(5)}>5 min</button>
-                <button class='button' onClick = { (e) => clickBotao(15)}>15 min</button>
+                <button type ='button' class='button' onClick ={ (e) => clickBotao(5,"Ultimos 5 minutos")}>5 min</button>
+                <button class='button' onClick = { (e) => clickBotao(15,"Ultimos 15 minutos")}>15 min</button>
+                <button class='button' onClick ={ (e) => clickBotao(30,"Ultimos 30 minutos")}>30 min</button>
+                <button class='button' onClick = { (e) => clickBotao(45 ,"Ultimos 45 minutos")}>45 min</button>
               </div>
             </div>
             </div>
       
             </div>
-          <div class='graficos'>   
+          <div class='graficos'>  
+
+
           <form onSubmit={dados}>
 
-           
+          
           <Chart onCha
-            width={'500px'}
-            height={'300px'}
-            chartType="LineChart"
+            width={'80vw'}
+            height={'50vh'}
+            options={options}
+            chartType="AreaChart"
+            //chartType="LineChart"
             data={dado}
             
             />
@@ -138,29 +184,7 @@ export default function Home(){
           </form>
           </div>
 
-         {/*  <label for ='toggle-1'>
-            Clique aqui
-            </label>
-
-            <input type = "checkbox" id = "toggle-1"></input>
-          <div id = 'mostra' class = 'botoes'>
-            <button onClick ={ (e) => clickBotao(5)}>5 min</button>
-            <button onClick = { (e) => clickBotao(15)}>15 min</button>
-           
-          </div> */}
-
-          {/* <div class='atualiza'>
-
-         '   <button id = "esconde">click em mim</button>
-            <div id="mostra1">
-
-              <div class='div_button'>
-                <button class='button' onClick ={ (e) => clickBotao(5)}>5 min</button>
-                <button class='button' onClick = { (e) => clickBotao(15)}>15 min</button>
-              </div>
-            </div>'
-
-          </div> */}
+        
 
         </div>
     )
