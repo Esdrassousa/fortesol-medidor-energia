@@ -8,7 +8,7 @@ import logoFortesol from '../../imagens/logo.png';
 import {Bubble, Line} from "react-chartjs-2";
 global.a = 0;
 global.data = 0
-
+global.esconde_linha1 = 100
 window.addEventListener("load" , function(event) { 
   var buttonb = document.getElementById("esconde")
   buttonb.addEventListener("click" , function(){
@@ -18,6 +18,8 @@ window.addEventListener("load" , function(event) {
         //setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
         
       })
+
+  
   var clickbotao = ()=>{
     //  var buttonb = document.getElementById("esconde")
     var container = document.getElementById("mostra1")
@@ -69,10 +71,24 @@ export default function Home(){
         await api.post('/', global.data).then(response => {
           //var a = response.data
           setDados(response.data)
-                
+             
         })
        
 
+    }
+
+    async  function Limpar(){
+      if (global.esconde_linha1 !=100){
+        global.esconde_linha1 = 100
+        console.log('entrou aquiiiiiiiiii')
+      }
+
+      else{
+        global.esconde_linha1 = 0
+        console.log('entrou aqui')
+      }
+
+      
     }
 
     async function clickBotao(id,text){
@@ -103,14 +119,20 @@ export default function Home(){
         
     })
       },[dado])
+
+
       
+    if(global.esconde_linha1 !=100){
+
       var options = {
         title: 'Forte Sol',
         
         hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
-          max: 50 //valor máximo a ser mostrado no eixo X
+           //valor máximo a ser mostrado no eixo X
+          
+           max:global.esconde_linha1,
         }},
-        vAxis: {title: 'Corrente', minValue:0},
+        vAxis: {title: 'Corrente'},
         series: {
           // Gives each series an axis name that matches the Y-axis below.
           0: { axis: 'Corrente' },
@@ -130,12 +152,40 @@ export default function Home(){
       }],
 
         backgroundColor: 'transparent',
+   }
+  }else{
+    var options = {
+      title: 'Forte Sol',
+      
+      hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
+         //valor máximo a ser mostrado no eixo X
         
-        
-        
-          }
          
-      console.log(dado[dado.length-1])
+      }},
+      vAxis: {title: 'Corrente'},
+      series: {
+        // Gives each series an axis name that matches the Y-axis below.
+        0: { axis: 'Corrente' },
+        1: { axis: 'Daylight' },
+      },
+      pointSize: 5,
+      xAxes: [{
+        type: 'time',
+        time: {
+            unit: 'day',
+            distribution: 'linear',
+            displayFormats: {
+                'MM': 'SS'
+            }
+        },
+        bounds: 'ticks',
+    }],
+
+      backgroundColor: 'transparent',
+ }
+  }
+         
+      console.log(global.esconde_linha1)
       
     return(
         <div class = 'pai'>
@@ -170,8 +220,10 @@ export default function Home(){
 
           
           <Chart onCha
-            width={'80vw'}
+            width={'99vw'}
             height={'50vh'}
+            /* width={'100%'}
+            height={'100%'} */
             options={options}
             chartType="AreaChart"
             //chartType="LineChart"
@@ -180,8 +232,11 @@ export default function Home(){
             />
             <div class = "button_form_div">
               <button class='button_form' type='button' type="submit">start</button>
+              
               </div>
           </form>
+
+          <button class='button_form' onClick={(e) =>Limpar()}>limpar</button>
           </div>
 
         

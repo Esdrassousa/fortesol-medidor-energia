@@ -10,8 +10,10 @@ body{
 }
 
 .menu{
-    width: 100;
+    width: 100%;
     display: flex;
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -19,12 +21,15 @@ img{
     display: block;
     margin-left: 44vw;
     margin-right: auto;
+    position: relative;
+    resize: both;
 }
 .bt_atualiza{
     position: relative;
     width: 10vw;
     font-size: 1.2vw;
     margin-left: 20vw;
+    resize: both;
 }
 
 .atualiza{
@@ -32,6 +37,7 @@ img{
     display: inline-block;
     position: relative;
     margin-top: 1em;
+    z-index: 8;
     
     
 
@@ -50,12 +56,16 @@ img{
     
 }
 .graficos{
-    border: 2em;
-    width: 20em;
+    border: 0em;
+    width: 100%;
+    height: 100%;
     display: table;
     position: relative;
     margin-left: auto;
-    margin-right: auto
+    margin-right: auto;
+    background-color: antiquewhite;
+  
+    z-index: 3;
    
 }
 
