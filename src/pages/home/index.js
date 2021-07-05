@@ -6,70 +6,39 @@ import { useState } from 'react';
 import api from '../../services/api'
 import logoFortesol from '../../imagens/logo.png';
 import {Bubble, Line} from "react-chartjs-2";
-global.a = 0;
-global.data = 0
+import event_botoes from './event_botoes'
+import Options_graficos from './optios_grafics'
+global.tempo_aux_para_enviar_backend = 0;
+global.tempo_para_enviar_backend = 0
 global.esconde_linha1 = 100
-window.addEventListener("load" , function(event) { 
-  var buttonb = document.getElementById("esconde")
-  buttonb.addEventListener("click" , function(){
-        var container = document.getElementById("mostra1")
-        container.classList.toggle("mystyle")
-        clickbotao()
-        //setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
-        
-      })
 
-  
-  var clickbotao = ()=>{
-    //  var buttonb = document.getElementById("esconde")
-    var container = document.getElementById("mostra1")
-    container.classList.toggle("mystyle")
-    if (container.style.display == 'block'){
-      container.style.display = 'none';
-      document.removeEventListener('click' , handlerClickFora, false)
-    }else{
-      container.style.display = 'block';
-      document.removeEventListener('click' , handlerClickFora, false)
-    }
-    
-    setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
-  }
-  var handlerClickFora =()=>{
-    var container = document.getElementById("mostra1")
-    var buttonb = document.getElementById("esconde")
-    if(!container.contains(event.target)){
-      container.style.display = 'none';
-      //buttonb.style.display = 'none';
-      
-      document.removeEventListener('click', handlerClickFora, false);    
-    }
-  }
-})
+const Options_de_graficos  = new Options_graficos()
+
+event_botoes()
+
 export default function Home(){
 
       
       const [dado ,setDados] = useState([['', 'corrente'], 
-      ['2021-03-20, 09:59:22',5.88],
-      
-     
-      ],
+      ['', 0]]
      );
     
-     async function dados(e){
+
+     async function atualiza_grafico(e){
         e.preventDefault()
-        if (global.a == 0) {
+        if (global.tempo_aux_para_enviar_backend == 0) {
           var minutes_recebidos = '5'
-          global.data = {
+          global.tempo_para_enviar_backend = {
             minutes_recebidos
           } 
-      }else{
-        var minutes_recebidos = global.
-        global.data = {
-          minutes_recebidos
-        } 
-      }
-        await api.post('/', global.data).then(response => {
-          //var a = response.data
+        }else{
+          var minutes_recebidos = global.
+          global.tempo_para_enviar_backend = {
+            minutes_recebidos
+          } 
+        }
+        await api.post('/', global.tempo_para_enviar_backend).then(response => {
+          
           setDados(response.data)
              
         })
@@ -77,42 +46,61 @@ export default function Home(){
 
     }
 
-    async  function Limpar(){
+    async  function Hiden_linha(){
       if (global.esconde_linha1 !=100){
         global.esconde_linha1 = 100
-        console.log('entrou aquiiiiiiiiii')
+        
       }
 
       else{
         global.esconde_linha1 = 0
-        console.log('entrou aqui')
+       
       }
 
       
     }
 
-    async function clickBotao(id,text){
+    async function clickBotao_de_tempo(id,text){
       
-      global.a = id
+      global.tempo_aux_para_enviar_backend = id
       document.getElementById('esconde').textContent = text
     }
 
-    /* var b = [['', 'corrente']]  */
-    useEffect(async  () => {
-      if (global.a == 0) {
+    var start_grafico = useEffect(async ()=>{
+      if (global.tempo_aux_para_enviar_backend == 0) {
         var minutes_recebidos = '5'
-        global.data = {
+        global.tempo_para_enviar_backend = {
+          minutes_recebidos
+        } 
+      }else{
+        var minutes_recebidos = global.
+        global.tempo_para_enviar_backend = {
+          minutes_recebidos
+        } 
+      }
+      await api.post('/', global.tempo_para_enviar_backend).then(response => {
+        
+        setDados(response.data)
+           
+      })
+    },[])
+    
+    
+    useEffect(async  () => {
+      if (global.tempo_aux_para_enviar_backend == 0) {
+        var minutes_recebidos = '5'
+        global.tempo_para_enviar_backend = {
           minutes_recebidos
         } 
     }else{
 
 
-      var minutes_recebidos = global.a
-      global.data = {
+      var minutes_recebidos = global.tempo_aux_para_enviar_backend
+      global.tempo_para_enviar_backend = {
         minutes_recebidos
       } 
     }
-      await api.post('/', global.data).then(response => {
+      await api.post('/', global.tempo_para_enviar_backend).then(response => {
         
         setDados(response.data)
            
@@ -124,77 +112,19 @@ export default function Home(){
       
     if(global.esconde_linha1 !=100){
 
-      var options = {
-        title: 'Forte Sol',
-        
-        hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
-           //valor máximo a ser mostrado no eixo X
-          
-           max:global.esconde_linha1,
-        }},
-        vAxis: {title: 'Corrente'},
-        series: {
-          // Gives each series an axis name that matches the Y-axis below.
-          0: { axis: 'Corrente' },
-          1: { axis: 'Daylight' },
-        },
-        pointSize: 5,
-        xAxes: [{
-          type: 'time',
-          time: {
-              unit: 'day',
-              distribution: 'linear',
-              displayFormats: {
-                  'MM': 'SS'
-              }
-          },
-          bounds: 'ticks',
-      }],
-
-        backgroundColor: 'transparent',
-   }
-  }else{
-    var options = {
-      title: 'Forte Sol',
-      
-      hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
-         //valor máximo a ser mostrado no eixo X
-        
+      var options = Options_de_graficos.optios1()
+       
+    }else{
+      var options = Options_de_graficos.optios2()
+    }
          
-      }},
-      vAxis: {title: 'Corrente'},
-      series: {
-        // Gives each series an axis name that matches the Y-axis below.
-        0: { axis: 'Corrente' },
-        1: { axis: 'Daylight' },
-      },
-      pointSize: 5,
-      xAxes: [{
-        type: 'time',
-        time: {
-            unit: 'day',
-            distribution: 'linear',
-            displayFormats: {
-                'MM': 'SS'
-            }
-        },
-        bounds: 'ticks',
-    }],
-
-      backgroundColor: 'transparent',
- }
-  }
-         
-      console.log(global.esconde_linha1)
+  
       
     return(
         <div class = 'pai'>
 
           <div class = 'menu'>
 
-            
-
-            
             <img src={logoFortesol} alt='logo'/>
             
 
@@ -204,10 +134,10 @@ export default function Home(){
               <div class = 'mystyle' id='mostra1'>
 
               <div class='div_button'>
-                <button type ='button' class='button' onClick ={ (e) => clickBotao(5,"Ultimos 5 minutos")}>5 min</button>
-                <button class='button' onClick = { (e) => clickBotao(15,"Ultimos 15 minutos")}>15 min</button>
-                <button class='button' onClick ={ (e) => clickBotao(30,"Ultimos 30 minutos")}>30 min</button>
-                <button class='button' onClick = { (e) => clickBotao(45 ,"Ultimos 45 minutos")}>45 min</button>
+                <button type ='button' class='button' onClick ={ (e) => clickBotao_de_tempo(5,"Ultimos 5 minutos")}>5 min</button>
+                <button class='button' onClick = { (e) => clickBotao_de_tempo(15,"Ultimos 15 minutos")}>15 min</button>
+                <button class='button' onClick ={ (e) => clickBotao_de_tempo(30,"Ultimos 30 minutos")}>30 min</button>
+                <button class='button' onClick = { (e) => clickBotao_de_tempo(45 ,"Ultimos 45 minutos")}>45 min</button>
               </div>
             </div>
             </div>
@@ -216,9 +146,8 @@ export default function Home(){
           <div class='graficos'>  
 
 
-          <form onSubmit={dados}>
+          <form onSubmit={atualiza_grafico}>
 
-          
           <Chart onCha
             width={'99vw'}
             height={'50vh'}
@@ -231,12 +160,13 @@ export default function Home(){
             
             />
             <div class = "button_form_div">
-              <button class='button_form' type='button' type="submit">start</button>
+
+              {/* <button class='button_form' type='button' type="submit">start</button> */}
               
               </div>
           </form>
 
-          <button class='button_form' onClick={(e) =>Limpar()}>limpar</button>
+          <button id = 'button_L_L1' class='button_L_L1' onClick={(e) =>Hiden_linha()} >Linha1</button>
           </div>
 
         
