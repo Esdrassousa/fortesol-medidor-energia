@@ -54,7 +54,7 @@ export default function Home(){
 
       else{
         global.esconde_linha1 = 0
-       
+        
       }
 
       
@@ -166,7 +166,7 @@ export default function Home(){
               </div>
           </form>
 
-          <button id = 'button_L_L1' class='button_L_L1' onClick={(e) =>Hiden_linha()} >Linha1</button>
+          <button id = 'button_L_L1' class='blue' onClick={(e) =>Hiden_linha()} >Linha1</button>
           </div>
 
         

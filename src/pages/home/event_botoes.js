@@ -17,14 +17,24 @@ function event_botoes(){
     var butao_hinde_L1 = document.getElementById('button_L_L1')
     butao_hinde_L1.addEventListener("click", function(){
         
-      /* if (butao_hinde_L1.classList.red == true){
+     /*  if (butao_hinde_L1.classList.red == true){
         butao_hinde_L1.classList.toggle('button_L_L1')
         console.log('entrou aqui')
       } */
 
-      if (butao_hinde_L1.classList.button_L_L1 == true){
-        butao_hinde_L1.classList.toggle('red')
+      if (butao_hinde_L1.className == 'blue'){
+        //butao_hinde_L1.classList.toggle('red')
+        /* butao_hinde_L1.classList.remove('button_L_L1')
+        butao_hinde_L1.classList.add('red') */
+        butao_hinde_L1.classList.replace('blue', 'red');
         console.log('entrou aqui')
+      }
+      
+      else{
+        //butao_hinde_L1.classList.toggle('red')
+        butao_hinde_L1.classList.replace('red', 'blue');
+        
+       
       }
       
     })
