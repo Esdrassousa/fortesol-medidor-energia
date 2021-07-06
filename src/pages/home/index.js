@@ -22,6 +22,12 @@ export default function Home(){
       const [dado ,setDados] = useState([['', 'corrente'], 
       ['', 0]]
      );
+
+     const [dado1, setDado1] = useState([
+      ['Label', 'Value'],
+      ['Memory', 0],
+    
+    ]);
     
 
      async function atualiza_grafico(e){
@@ -40,6 +46,18 @@ export default function Home(){
         await api.post('/', global.tempo_para_enviar_backend).then(response => {
           
           setDados(response.data)
+          console.log((response.data).length)
+          var fim = (response.data).length
+          var dado2 = response.data[fim-1]
+          dado2 =dado2[1]
+          console.log(dado2) 
+
+          setDado1([
+            ['Label', 'Value'],
+            ['Memory', dado2],
+          
+          ])
+          
              
         })
        
@@ -66,24 +84,7 @@ export default function Home(){
       document.getElementById('esconde').textContent = text
     }
 
-    var start_grafico = useEffect(async ()=>{
-      if (global.tempo_aux_para_enviar_backend == 0) {
-        var minutes_recebidos = '5'
-        global.tempo_para_enviar_backend = {
-          minutes_recebidos
-        } 
-      }else{
-        var minutes_recebidos = global.
-        global.tempo_para_enviar_backend = {
-          minutes_recebidos
-        } 
-      }
-      await api.post('/', global.tempo_para_enviar_backend).then(response => {
-        
-        setDados(response.data)
-           
-      })
-    },[])
+   
     
     
     useEffect(async  () => {
@@ -103,7 +104,20 @@ export default function Home(){
       await api.post('/', global.tempo_para_enviar_backend).then(response => {
         
         setDados(response.data)
-           
+        
+        
+
+        
+        var fim = (response.data).length
+        var dado2 = response.data[fim-1]
+        dado2 =dado2[1]
+        console.log(dado2) 
+
+        setDado1([
+          ['Label', 'Value'],
+          ['Memory', dado2],
+        
+        ])   
       
     })
       },[dado])
@@ -118,8 +132,7 @@ export default function Home(){
       var options = Options_de_graficos.optios2()
     }
          
-  
-      
+   
     return(
         <div class = 'pai'>
 
@@ -157,6 +170,31 @@ export default function Home(){
             chartType="AreaChart"
             //chartType="LineChart"
             data={dado}
+            
+            />
+          
+          <Chart 
+            width={'50vw'}
+            height={'20vh'}
+            
+              
+            /* width={'100%'}
+            height={'100%'} */
+            options={{
+              greenFrom:0,
+              greenTo:10,
+              redFrom: 10,
+              redTo: 15,
+              yellowFrom: 15,
+              yellowTo: 20,
+              minorTicks: 0.1,
+              min:0,
+              max:20
+            }}
+            chartType="Gauge"
+            //chartType="LineChart"
+            
+            data={dado1}
             
             />
             <div class = "button_form_div">
