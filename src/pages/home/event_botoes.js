@@ -3,29 +3,25 @@ import './style.css'
 
 function event_botoes(){
 
-    return(
-    window.addEventListener("load" , function(event) { 
+  return(
+
+   window.addEventListener("load" , function(event) { 
     var buttonb = document.getElementById("esconde")
+    if (buttonb){
     buttonb.addEventListener("click" , function(){
           var container = document.getElementById("mostra1")
           container.classList.toggle("mystyle")
           clickbotao()
-          //setTimeout(() => { document.addEventListener('click', handlerClickFora, false) }, 200);
+          
           
         })
   
     var butao_hinde_L1 = document.getElementById('button_L_L1')
     butao_hinde_L1.addEventListener("click", function(){
         
-     /*  if (butao_hinde_L1.classList.red == true){
-        butao_hinde_L1.classList.toggle('button_L_L1')
-        console.log('entrou aqui')
-      } */
+     
 
       if (butao_hinde_L1.className == 'blue'){
-        //butao_hinde_L1.classList.toggle('red')
-        /* butao_hinde_L1.classList.remove('button_L_L1')
-        butao_hinde_L1.classList.add('red') */
         butao_hinde_L1.classList.replace('blue', 'red');
         console.log('entrou aqui')
       }
@@ -33,8 +29,7 @@ function event_botoes(){
       else{
         //butao_hinde_L1.classList.toggle('red')
         butao_hinde_L1.classList.replace('red', 'blue');
-        
-       
+  
       }
       
     })
@@ -62,6 +57,7 @@ function event_botoes(){
         document.removeEventListener('click', handlerClickFora, false);    
       }
     }
+  }
   })
 
     )}

@@ -68,6 +68,12 @@ img{
     z-index: 3;
    
 }
+/* 
+.graficos:hover {
+    -moz-transform: scale(2);
+    -webkit-transform: scale(2);
+    transform: scale(2);
+  } */
 
 .button_form_div{
     width: 20vh;
