@@ -7,34 +7,43 @@ class Options_graficos extends Component{
         
     
     var options = {
-        title: 'Forte Sol',
+      explorer: {
+        maxZoomOut:4,
+        keepInBounds: true
+    },
+        title: 'Gráficos de Corrente',
         
         hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
            //valor máximo a ser mostrado no eixo X
-          
-           max:0,
+           
+           //0:{max:0},
+           viewWindow: {
+            
+            max: [5, 5]
+          }
+           
         }},
+
         vAxis: {title: 'Corrente'},
         series: {
-          // Gives each series an axis name that matches the Y-axis below.
-          0: { axis: 'Corrente' },
-          1: { axis: 'Daylight' },
-        },
-        pointSize: 5,
-        xAxes: [{
-          type: 'time',
-          time: {
-              unit: 'day',
-              distribution: 'linear',
-              displayFormats: {
-                  'MM': 'SS'
-              }
-          },
-          bounds: 'ticks',
-      }],
+          
+         //0: { axis: 'Corrente'},
+          0: { color: '#808080' },
+          
+        }, 
 
+        pointSize: 5,
+    
         backgroundColor: 'transparent',
+        
    }
+
+   ////////////////////////////////////////////
+
+   
+
+
+
 
    return (options)
 }
@@ -43,33 +52,33 @@ class Options_graficos extends Component{
         
     
     var options = {
-        title: 'Forte Sol',
+
+      explorer: {
+        maxZoomOut:4,
+        keepInBounds: true
+    },
+        title:  'Gráficos de Corrente',
         
         hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
            //valor máximo a ser mostrado no eixo X
-          
+           
            
         }},
         vAxis: {title: 'Corrente'},
         series: {
           // Gives each series an axis name that matches the Y-axis below.
-          0: { axis: 'Corrente' },
-          1: { axis: 'Daylight' },
+          //0: { axis: 'Corrente' },
+          //1: { curveType: 'function' },
+          0: { color: '#87ceeb' },
+          1: { color: '#808080' },
         },
-        pointSize: 5,
-        xAxes: [{
-          type: 'time',
-          time: {
-              unit: 'day',
-              distribution: 'linear',
-              displayFormats: {
-                  'MM': 'SS'
-              }
-          },
-          bounds: 'ticks',
-      }],
 
+        
+        pointSize: 5,
+      
         backgroundColor: 'transparent',
+
+       
    }
    return (options)
 }
