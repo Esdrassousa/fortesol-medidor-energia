@@ -229,6 +229,75 @@ optios6(){
    return (options)
 }
 
+optios7(){
+        
+    
+  var options = {
+
+    explorer: {
+      maxZoomOut:4,
+      keepInBounds: true
+  },
+      title: 'Gráficos de Tensão',
+      
+      hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
+         //valor máximo a ser mostrado no eixo X
+         
+         
+      }},
+      vAxis: {title: 'Tensão'},
+      series: {
+        // Gives each series an axis name that matches the Y-axis below.
+        0: { color: '#87cefa' },
+        1: { color: '#808080' },
+        
+        
+      },
+
+      
+      pointSize: 5,
+      
+      backgroundColor: 'transparent',
+
+     
+ }
+ return (options)
+}
+
+optios8(){
+        
+    
+  var options = {
+
+    explorer: {
+      maxZoomOut:4,
+      keepInBounds: true
+  },
+      title: 'Gráficos de Tensão',
+      
+      hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
+         //valor máximo a ser mostrado no eixo X
+         
+         
+      }},
+      vAxis: {title: 'Tensão'},
+      series: {
+        // Gives each series an axis name that matches the Y-axis below.
+        0: { color: '#808080' },
+        
+        
+      },
+
+      
+      pointSize: 5,
+      
+      backgroundColor: 'transparent',
+
+     
+ }
+ return (options)
+}
+
 }
 
 export default Options_graficos_tensao

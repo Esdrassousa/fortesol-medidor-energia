@@ -10,6 +10,7 @@ import logoFortesol from '../../imagens/logo.png';
 import event_botoes from './event_botoes'
 import Options_graficos from './optios_grafics'
 import Options_graficos_tensao from './options_graph_tensao'
+import {hiden_linhas_tensao, hiden_linhas_tensao_pos_for} from './hiden_linhas_tensao'
 global.tempo_aux_para_enviar_backend = 0;
 global.tempo_para_enviar_backend = 0
 global.esconde_linha1 = 100
@@ -185,7 +186,7 @@ export default function Home(){
           var vetor = [['', 'corrente a', 'corrente b']]
         }
 
-        if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao == 100 & global.esconde_linha3_tensao == 100){
+        /* if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao == 100 & global.esconde_linha3_tensao == 100){
           var Vetor_tensao = [['', 'tensao b', 'tensao c']]
         }
         
@@ -200,9 +201,19 @@ export default function Home(){
         else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao != 100 & global.esconde_linha3_tensao != 100){
           var Vetor_tensao = [['', 'tensao a']]
         }
+        else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao == 100 & global.esconde_linha3_tensao != 100){
+          var Vetor_tensao = [['', 'tensao a','tensao b']]
+        }
+
+        else if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao == 100 & global.esconde_linha3_tensao != 100){
+          var Vetor_tensao = [['','tensao b']]
+        }
         else{
           var Vetor_tensao = [['', 'tensao a', 'tensao b', 'tensao c']]
-        }
+        } */
+
+        
+        var Vetor_tensao = hiden_linhas_tensao(global.esconde_linha1_tensao,global.esconde_linha2_tensao,global.esconde_linha3_tensao)
         for(var i=0; i<tamanho ; i++)  {
             var data_horas_mimuto  = response.data[0]
             var data_horas_mimuto = data_horas_mimuto[0]
@@ -212,41 +223,9 @@ export default function Home(){
             var corrente2  = response.data[2]
             var corrente2 = corrente2[0]
 
-            var tensao1  = response.data[4]
-            var tensao1 = tensao1[0] 
+            
 
-            var tensao2  = response.data[5]
-            var tensao2 = tensao2[0]
-
-            var tensao3  = response.data[6]
-            var tensao3 = tensao3[0]
-
-            if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao == 100 & global.esconde_linha3_tensao == 100){
-              var vetor_junt_tensao = [data_horas_mimuto[i],tensao2[i],tensao3[i]]
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
-            else if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao != 100 & global.esconde_linha3_tensao != 100){
-              var vetor_junt_tensao = []
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
-            else if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao != 100 & global.esconde_linha3_tensao == 100){
-              var vetor_junt_tensao = [data_horas_mimuto[i],tensao3[i]]
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
-
-            else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao != 100 & global.esconde_linha3_tensao == 100){
-              var vetor_junt_tensao = [data_horas_mimuto[i],tensao1[i] ,tensao3[i]]
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
-
-            else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao != 100 & global.esconde_linha3_tensao != 100){
-              var vetor_junt_tensao = [data_horas_mimuto[i],tensao1[i]]
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
-            else{
-              var vetor_junt_tensao = [data_horas_mimuto[i],tensao1[i],tensao2[i],tensao3[i]]
-              Vetor_tensao.push(vetor_junt_tensao)
-            }
+            var Vetor_tensao = hiden_linhas_tensao_pos_for(response.data,i,Vetor_tensao ,global.esconde_linha1_tensao,global.esconde_linha2_tensao,global.esconde_linha3_tensao )
 
             if(global.esconde_linha1 !=100){
               var vetor3 = [data_horas_mimuto[i],corrente2[i]]
@@ -311,6 +290,16 @@ export default function Home(){
     else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao !=100 & global.esconde_linha3_tensao !=100){
 
       var options1_tensao = Options_de_graficos_tensao.optios5()
+       
+    }
+    else if(global.esconde_linha1_tensao ==100 & global.esconde_linha2_tensao ==100 & global.esconde_linha3_tensao !=100){
+
+      var options1_tensao = Options_de_graficos_tensao.optios7()
+       
+    }
+    else if(global.esconde_linha1_tensao !=100 & global.esconde_linha2_tensao ==100 & global.esconde_linha3_tensao !=100){
+
+      var options1_tensao = Options_de_graficos_tensao.optios8()
        
     }
     else{
