@@ -3,7 +3,10 @@ import Options_graficos_corrente from './options_grapf_corrente'
 const Options_de_graficos_corrente = new Options_graficos_corrente()
 
 export function hiden_linhas_corrente(esconde_linha1_corrente, esconde_linha2_corrente, esconde_linha3_corrente) {
-    if (esconde_linha1_corrente != 100 & esconde_linha2_corrente == 100 & esconde_linha3_corrente == 100) {
+    if (esconde_linha1_corrente != 100 & esconde_linha2_corrente != 100 & esconde_linha3_corrente != 100) {
+        var Vetor_corrente = [['', 'Corrente'],['', 0]]
+    }
+    else if (esconde_linha1_corrente != 100 & esconde_linha2_corrente == 100 & esconde_linha3_corrente == 100) {
         var Vetor_corrente = [['', 'corrente b', 'corrente c']]
     }
 
@@ -53,7 +56,7 @@ export function hiden_linhas_corrente_pos_for(response, i, Vetor_corrente, escon
         Vetor_corrente.push(vetor_junt_corrente)
     }
     else if (esconde_linha1_corrente != 100 & esconde_linha2_corrente != 100 & esconde_linha3_corrente != 100) {
-        var vetor_junt_corrente = []
+        var vetor_junt_corrente = [['', 'Corrente'],['', 0]]
         Vetor_corrente.push(vetor_junt_corrente)
     }
     else if (esconde_linha1_corrente != 100 & esconde_linha2_corrente != 100 & esconde_linha3_corrente == 100) {
@@ -130,5 +133,49 @@ export function options_corrente(esconde_linha1_corrente, esconde_linha2_corrent
     }
 
     return options1_corrente
+}
+
+export function Hiden_linha1_corrente(indice,esconde_linha1_corrente,esconde_linha2_corrente,esconde_linha3_corrente) {
+
+    if (indice == 1) {
+        if (esconde_linha1_corrente != 100) {
+          esconde_linha1_corrente = 100
+  
+        }
+  
+        else {
+          esconde_linha1_corrente = 0
+  
+        }
+  
+      }
+  
+      if (indice == 2) {
+        if (esconde_linha2_corrente != 100) {
+          esconde_linha2_corrente = 100
+  
+        }
+  
+        else {
+          esconde_linha2_corrente = 0
+  
+        }
+  
+      }
+  
+      if (indice == 3) {
+        if (esconde_linha3_corrente != 100) {
+          esconde_linha3_corrente = 100
+  
+        }
+  
+        else {
+          esconde_linha3_corrente = 0
+  
+        }
+  
+      }
+
+      return [esconde_linha1_corrente,esconde_linha2_corrente,esconde_linha3_corrente]
 }
 

@@ -11,7 +11,7 @@ class Options_graficos_tensao extends Component{
         maxZoomOut:4,
         keepInBounds: true
     },
-        title: 'Forte Sol',
+    title: 'Gráficos de Tensão',
         
         hAxis: {title: 'data',  titleTextStyle: {color: '#333'},viewWindow: {
            //valor máximo a ser mostrado no eixo X
@@ -23,11 +23,7 @@ class Options_graficos_tensao extends Component{
         vAxis: {title: 'Tensão'},
         series: {
           // Gives each series an axis name that matches the Y-axis below.
-          0: { axis: 'Tensão' },
-          
-         
-          //1: { curveType: 'function' },
-         
+          0: { axis: 'Tensão' },       
         },
 
         
@@ -51,11 +47,7 @@ class Options_graficos_tensao extends Component{
 
    ////////////////////////////////////////////
 
-   
-
-
-
-
+  
    return (options)
 }
 

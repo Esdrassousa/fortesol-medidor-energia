@@ -8,9 +8,9 @@ import api from '../../services/api'
 import logoFortesol from '../../imagens/logo.png';
 
 import event_botoes from './event_botoes'
-import { hiden_linhas_tensao, hiden_linhas_tensao_pos_for, options_tensao } from './Tensao/hiden_linhas_tensao'
-import { hiden_linhas_corrente, hiden_linhas_corrente_pos_for, options_corrente } from './Corrente/hidden_linhas_corrente'
-
+import { hiden_linhas_tensao, hiden_linhas_tensao_pos_for, options_tensao,Hiden_linha1_tensao } from './Tensao/hiden_linhas_tensao'
+import { hiden_linhas_corrente, hiden_linhas_corrente_pos_for, options_corrente,Hiden_linha1_corrente} from './Corrente/hidden_linhas_corrente'
+import {fator_potencia} from './Fator_Pot/fator_pot'
 
 global.tempo_aux_para_enviar_backend = 0;
 global.tempo_para_enviar_backend = 0
@@ -25,19 +25,16 @@ global.esconde_linha2_corrente = 100
 global.esconde_linha3_corrente = 100
 
 
-
-
 event_botoes()
 
 export default function Home() {
 
 
-  const [dado, setDados] = useState([['', 'Corrente'],
-  ['', 0]]
-  );
+  const [corrente, setCorrente] = useState([['', 'Corrente'],['', 0]]);
 
-  
   const [tensao, setTensao] = useState([['', 'Tensão'], ['', 0]])
+
+  const [fpot1, setFpot1] = useState([['Label', 'Value'],['FPA', 0],['FPB', 0],['FPC', 0]])
 
 
   async function atualiza_grafico(e) {
@@ -61,109 +58,33 @@ export default function Home() {
 
       var Vetor_tensao = hiden_linhas_tensao(global.esconde_linha1_tensao, global.esconde_linha2_tensao, global.esconde_linha3_tensao)
       var Vetor_corrente = hiden_linhas_corrente(global.esconde_linha1_corrente, global.esconde_linha2_corrente, global.esconde_linha3_corrente)
+      
       for (var i = 0; i < tamanho; i++) {
 
         var Vetor_Corrente = hiden_linhas_corrente_pos_for(response.data, i, Vetor_corrente, global.esconde_linha1_corrente, global.esconde_linha2_corrente, global.esconde_linha3_corrente)
-
         var Vetor_tensao = hiden_linhas_tensao_pos_for(response.data, i, Vetor_tensao, global.esconde_linha1_tensao, global.esconde_linha2_tensao, global.esconde_linha3_tensao)
 
-
-
       }
-
-      setDados(Vetor_Corrente)
+      var fator_pot1
+      var fator_pot2
+      var fator_pot3
+      [fator_pot1,fator_pot2,fator_pot3] = fator_potencia(response.data)
+      setFpot1([['Label', 'Value'],['FPA', fator_pot1],['FPB', fator_pot2],['FPC', fator_pot3]])
+      setCorrente(Vetor_Corrente)
       setTensao(Vetor_tensao)
 
     })
 
 
   }
+  async function fun_Hiden_linha1_corrente(indice){
+  [global.esconde_linha1_corrente,global.esconde_linha2_corrente,global.esconde_linha3_corrente] = Hiden_linha1_corrente(indice,global.esconde_linha1_corrente, global.esconde_linha2_corrente, global.esconde_linha3_corrente)
+}
 
-
-  async function Hiden_linha1_corrente(indice) {
-
-    if (indice == 1) {
-      if (global.esconde_linha1_corrente != 100) {
-        global.esconde_linha1_corrente = 100
-
-      }
-
-      else {
-        global.esconde_linha1_corrente = 0
-
-      }
-
-    }
-
-    if (indice == 2) {
-      if (global.esconde_linha2_corrente != 100) {
-        global.esconde_linha2_corrente = 100
-
-      }
-
-      else {
-        global.esconde_linha2_corrente = 0
-
-      }
-
-    }
-
-    if (indice == 3) {
-      if (global.esconde_linha3_corrente != 100) {
-        global.esconde_linha3_corrente = 100
-
-      }
-
-      else {
-        global.esconde_linha3_corrente = 0
-
-      }
-
-    }
-  }
-
-  async function Hiden_linha1_tensao(indice) {
-
-    if (indice == 1) {
-      if (global.esconde_linha1_tensao != 100) {
-        global.esconde_linha1_tensao = 100
-
-      }
-
-      else {
-        global.esconde_linha1_tensao = 0
-
-      }
-
-    }
-
-    if (indice == 2) {
-      if (global.esconde_linha2_tensao != 100) {
-        global.esconde_linha2_tensao = 100
-
-      }
-
-      else {
-        global.esconde_linha2_tensao = 0
-
-      }
-
-    }
-
-    if (indice == 3) {
-      if (global.esconde_linha3_tensao != 100) {
-        global.esconde_linha3_tensao = 100
-
-      }
-
-      else {
-        global.esconde_linha3_tensao = 0
-
-      }
-
-    }
-  }
-
+async function fun_Hiden_linha1_tensao(indice){
+  [global.esconde_linha1_tensao,global.esconde_linha2_tensao,global.esconde_linha3_tensao] = Hiden_linha1_tensao(indice,global.esconde_linha1_tensao, global.esconde_linha2_tensao, global.esconde_linha3_tensao)
+}
+  
 
 
   async function clickBotao_de_tempo(id, text) {
@@ -210,8 +131,12 @@ export default function Home() {
 
 
       }
-
-      setDados(Vetor_Corrente)
+      var fator_pot1
+      var fator_pot2
+      var fator_pot3
+      [fator_pot1,fator_pot2,fator_pot3] = fator_potencia(response.data)
+      setFpot1([['Label', 'Value'],['FPA', fator_pot1],['FPB', fator_pot2],['FPC', fator_pot3]])
+      setCorrente(Vetor_Corrente)
       setTensao(Vetor_tensao)
 
 
@@ -221,7 +146,7 @@ export default function Home() {
 
 
     })
-  }, [dado])
+  }, [corrente])
 
 
 
@@ -339,17 +264,18 @@ export default function Home() {
             height={'100%'} */
             options={options1_corrente}
             chartType="AreaChart"
+            loader={<div>Loading Chart</div>}
             //chartType="LineChart"
-            data={dado}
+            data={corrente}
             ScrollBar
             rootProps={{ 'data-testid': '10' }}
 
           >
           </Chart>
 
-          <button id='button_L_L1_corrente' class='blue1' onClick={(e) => Hiden_linha1_corrente(1)}>Corrente_A</button>
-          <button id='button_L_L2_corrente' class='cinza' onClick={(e) => Hiden_linha1_corrente(2)} >Corrente_B</button>
-          <button id='button_L_L3_corrente' class='ambar' onClick={(e) => Hiden_linha1_corrente(3)} >Corrente_C</button>
+          <button id='button_L_L1_corrente' class='blue1' onClick={(e) => fun_Hiden_linha1_corrente(1)}>Corrente_A</button>
+          <button id='button_L_L2_corrente' class='cinza' onClick={(e) => fun_Hiden_linha1_corrente(2)} >Corrente_B</button>
+          <button id='button_L_L3_corrente' class='ambar' onClick={(e) => fun_Hiden_linha1_corrente(3)} >Corrente_C</button>
 
           <Chart
 
@@ -359,6 +285,7 @@ export default function Home() {
             height={'100%'} */
             options={options1_tensao}
             chartType="AreaChart"
+            loader={<div>Loading Chart</div>}
             //chartType="LineChart"
             data={tensao}
             ScrollBar
@@ -366,37 +293,37 @@ export default function Home() {
 
           >
           </Chart>
-          <button id='button_L_L1_tensao' class='blue1' onClick={(e) => Hiden_linha1_tensao(1)}>Tensão_A</button>
-          <button id='button_L_L2_tensao' class='cinza' onClick={(e) => Hiden_linha1_tensao(2)} >Tensão_B</button>
-          <button id='button_L_L3_tensao' class='ambar' onClick={(e) => Hiden_linha1_tensao(3)} >Tensão_C</button>
-
-
-          {/* <Chart
-            width={'50vw'}
-            height={'20vh'}
-
-            options={{
-              greenFrom: 0,
-              greenTo: 10,
-              redFrom: 10,
-              redTo: 15,
-              yellowFrom: 15,
-              yellowTo: 20,
+          <button id='button_L_L1_tensao' class='blue1' onClick={(e) => fun_Hiden_linha1_tensao(1)}>Tensão_A</button>
+          <button id='button_L_L2_tensao' class='cinza' onClick={(e) => fun_Hiden_linha1_tensao(2)} >Tensão_B</button>
+          <button id='button_L_L3_tensao' class='ambar' onClick={(e) => fun_Hiden_linha1_tensao(3)} >Tensão_C</button>
+          <div class='gauge'>
+          <h>Fator de Potencia</h>
+          <Chart
+            width={'40vw'}
+            height={'36vh'}
+            chartType="Gauge"
+            loader={<div>Loading Chart</div>}
+            
+            options={
+              
+              {
+              title: 'Gráficos de Tensão',
+              greenFrom: 0.92,
+              greenTo: 1,
+              redFrom: 0,
+              redTo: 0.5,
+              yellowFrom: 0.5,
+              yellowTo: 0.92,
               minorTicks: 0.1,
               min: 0,
-              max: 20
+              max: 1 
             }}
-            chartType="Gauge"
-            //chartType="LineChart"
+            rootProps={{ 'data-testid': '1' }}
+            data={fpot1}
 
-            data={dado1}
-
-          /> */}
-          <div class="button_form_div">
-
-            {/* <button class='button_form' type='button' type="submit">start</button> */}
-
+          ></Chart>
           </div>
+      
         </form>
 
 

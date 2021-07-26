@@ -3,7 +3,10 @@ import Options_graficos_tensao from './options_graph_tensao'
 const Options_de_graficos_tensao = new Options_graficos_tensao()
 
 export function hiden_linhas_tensao(esconde_linha1_tensao, esconde_linha2_tensao, esconde_linha3_tensao) {
-    if (esconde_linha1_tensao != 100 & esconde_linha2_tensao == 100 & esconde_linha3_tensao == 100) {
+    if (esconde_linha1_tensao != 100 & esconde_linha2_tensao != 100 & esconde_linha3_tensao != 100) {
+        var Vetor_tensao = [['', 'Tensão'],['', 0]]
+    }
+    else if (esconde_linha1_tensao != 100 & esconde_linha2_tensao == 100 & esconde_linha3_tensao == 100) {
         var Vetor_tensao = [['', 'tensao b', 'tensao c']]
     }
 
@@ -53,7 +56,7 @@ export function hiden_linhas_tensao_pos_for(response, i, Vetor_tensao, esconde_l
         Vetor_tensao.push(vetor_junt_tensao)
     }
     else if (esconde_linha1_tensao != 100 & esconde_linha2_tensao != 100 & esconde_linha3_tensao != 100) {
-        var vetor_junt_tensao = []
+        var vetor_junt_tensao = [['', 'Tensão'], ['', 0]]
         Vetor_tensao.push(vetor_junt_tensao)
     }
     else if (esconde_linha1_tensao != 100 & esconde_linha2_tensao != 100 & esconde_linha3_tensao == 100) {
@@ -130,5 +133,49 @@ export function options_tensao(esconde_linha1_tensao, esconde_linha2_tensao, esc
     }
 
     return options1_tensao
+}
+
+export function Hiden_linha1_tensao(indice,esconde_linha1_tensao,esconde_linha2_tensao,esconde_linha3_tensao) {
+
+    if (indice == 1) {
+        if (esconde_linha1_tensao != 100) {
+          esconde_linha1_tensao = 100
+  
+        }
+  
+        else {
+          esconde_linha1_tensao = 0
+  
+        }
+  
+      }
+  
+      if (indice == 2) {
+        if (esconde_linha2_tensao != 100) {
+          esconde_linha2_tensao = 100
+  
+        }
+  
+        else {
+          esconde_linha2_tensao = 0
+  
+        }
+  
+      }
+  
+      if (indice == 3) {
+        if (esconde_linha3_tensao != 100) {
+          esconde_linha3_tensao = 100
+  
+        }
+  
+        else {
+          esconde_linha3_tensao = 0
+  
+        }
+  
+      }
+
+      return [esconde_linha1_tensao,esconde_linha2_tensao,esconde_linha3_tensao]
 }
 

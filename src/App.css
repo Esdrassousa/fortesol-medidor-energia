@@ -1,6 +1,6 @@
 .App {
   text-align: center;
-  background-color: aquamarine;
+  background-color: rgb(228, 238, 235);
 }
 
 .App-logo {
@@ -22,11 +22,11 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #61dafb ;
+  color: rgb(228, 238, 235); ;
 }
 
 .App-link {
-  color: #61dafb;
+  color: rgb(228, 238, 235);;
 }
 
 @keyframes App-logo-spin {

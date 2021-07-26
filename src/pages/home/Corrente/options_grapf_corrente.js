@@ -24,10 +24,7 @@ class Options_graficos_corrente extends Component{
         series: {
           // Gives each series an axis name that matches the Y-axis below.
           0: { axis: 'Corrente' },
-          
-         
-          //1: { curveType: 'function' },
-         
+ 
         },
 
         
